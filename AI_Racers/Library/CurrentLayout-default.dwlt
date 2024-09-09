@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: Scene
   m_RootView: {fileID: 6}
-  m_MinSize: {x: 875, y: 542}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 103
+  controlID: 99
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -150,7 +150,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 997
-  m_MinSize: {x: 875, y: 542}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 30
@@ -351,14 +351,14 @@ MonoBehaviour:
   m_LastFolders:
   - Assets
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: D:\Dylan Panazzi\Desktop\Game Dev stuff\Unity Projects\AI_Racers
+  m_LastProjectPath: C:\Users\Dylan Panazzi\Documents\GitHub\AI_Racers\AI_Racers
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: ec4b0000
-    m_LastClickedID: 19436
-    m_ExpandedIDs: 00000000ec4b000000ca9a3b
+    m_SelectedIDs: 943d0000
+    m_LastClickedID: 15764
+    m_ExpandedIDs: 00000000943d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -386,7 +386,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 
+    m_ExpandedIDs: 00000000943d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -507,9 +507,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: a0faffff
+      m_SelectedIDs: 40f9ffff
+      m_LastClickedID: -1728
+      m_ExpandedIDs: 6efbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -569,9 +569,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -16.771347, y: 10.866627, z: 22.122927}
+    m_Target: {x: -0.67655563, y: 7.85, z: 25.61}
     speed: 2
-    m_Value: {x: -16.771347, y: 10.866627, z: 22.122927}
+    m_Value: {x: -0.6765566, y: 7.85, z: 25.61}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -620,11 +620,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.031367745, y: 0.74121803, z: -0.034721833, w: -0.6696286}
     speed: 2
-    m_Value: {x: -0.032210637, y: 0.74417216, z: -0.035979, w: -0.66624004}
+    m_Value: {x: -0.031367745, y: 0.74121803, z: -0.034721833, w: -0.6696286}
   m_Size:
-    m_Target: 23.0786
+    m_Target: 10.519793
     speed: 2
-    m_Value: 23.0786
+    m_Value: 10.066787
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -715,23 +715,23 @@ MonoBehaviour:
     m_DrawArea:
       serializedVersion: 2
       x: 0
-      y: 21
+      y: 0
       width: 1241
-      height: 565
-    m_Scale: {x: 0.39236113, y: 0.3923611}
-    m_Translation: {x: 620.5, y: 282.5}
+      height: 586
+    m_Scale: {x: 0.40694445, y: 0.40694445}
+    m_Translation: {x: 620.5, y: 293}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -1581.4513
+      x: -1524.7781
       y: -720
-      width: 3162.9026
+      width: 3049.5562
       height: 1440
     m_MinimalGUI: 1
-  m_defaultScale: 0.3923611
+  m_defaultScale: 0.40694445
   m_LastWindowPixelSize: {x: 1241, y: 586}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
