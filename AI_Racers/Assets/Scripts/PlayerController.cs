@@ -1,39 +1,46 @@
+using System;
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private float maxForwardSpeed;
+    [SerializeField] private float maxReverseSpeed;
+    [SerializeField] private float accelerationSpeed; // Acceleration / Decceleration and Reversing
+    [SerializeField] private float rotateSpeed; // Turning
 
-    public float ForwardMove;
-    private float ForwardSpeed;
-    public float Rotate;
-    private float RotateSpeed;
-    private bool  IsReverse;
+    private float _accel;
+    private float _rotate;
+    private Rigidbody _rb;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        _rb = gameObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
-        // ForwardSpeed is slower if in reverse
-        IsReverse = Input.GetAxis("Vertical") < 0; // if input < 0, it goes backwards
-        ForwardSpeed = IsReverse ? 5 : 20;
+        _rb.MoveRotation(Quaternion.Euler(0, rotateSpeed * _rotate * Time.fixedDeltaTime, 0));
         
-        /* sets players movement direction based on input. Because input is only -1 to 1, you must  
-          multiply input by speed */
-        Rotate = Input.GetAxis("Horizontal") * RotateSpeed;
-        ForwardMove =  Input.GetAxis("Vertical") * ForwardSpeed;
-        
-        // translates player based on what user inputed * speed
-        transform.Translate(Vector3.forward * Time.deltaTime * ForwardMove);
+        _rb.velocity += (_accel * Time.fixedDeltaTime * accelerationSpeed * transform.forward);
 
-        RotateSpeed = ForwardMove * 2;// turning is relative to the car's speed (car can't turn while stopped)
-        transform.Rotate(Vector3.up, Time.deltaTime * Rotate);
+        Vector3 v = _rb.velocity;
+        _rb.velocity = Math.Min(v.magnitude, maxForwardSpeed) * v.normalized;
+    }
+
+    void OnTurn(InputValue value)
+    {
+        _rotate = value.Get<float>();
+    }
+
+    void OnAccelerate(InputValue value)
+    {
+        _accel = value.Get<float>();
     }
 }
