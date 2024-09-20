@@ -8,30 +8,25 @@ using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float maxForwardSpeed;
-    [SerializeField] private float maxReverseSpeed;
-    [SerializeField] private float accelerationSpeed; // Acceleration / Decceleration and Reversing
-    [SerializeField] private float rotateSpeed; // Turning
+    [SerializeField] private Vehicle vehicle;
 
     private float _accel;
     private float _rotate;
-    private Rigidbody _rb;
     
     // Start is called before the first frame update
     void Start()
     {
-        _rb = gameObject.GetComponent<Rigidbody>();
+        Debug.Log(vehicle);
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        _rb.MoveRotation(Quaternion.Euler(0, rotateSpeed * _rotate * Time.fixedDeltaTime, 0));
-        
-        _rb.velocity += (_accel * Time.fixedDeltaTime * accelerationSpeed * transform.forward);
+        vehicle.Accelerate(Math.Max(0, _accel));
+        vehicle.Brake(Math.Max(0, -_accel));
+        vehicle.Steer(_rotate);
 
-        Vector3 v = _rb.velocity;
-        _rb.velocity = Math.Min(v.magnitude, maxForwardSpeed) * v.normalized;
+        transform.position = vehicle.gameObject.transform.position;
     }
 
     void OnTurn(InputValue value)
@@ -42,5 +37,11 @@ public class PlayerController : MonoBehaviour
     void OnAccelerate(InputValue value)
     {
         _accel = value.Get<float>();
+    }
+
+    bool OnGround()
+    {
+        bool cast = Physics.Raycast(transform.position, Vector3.down, 1, LayerMask.GetMask("Drivable"));
+        return cast;
     }
 }
