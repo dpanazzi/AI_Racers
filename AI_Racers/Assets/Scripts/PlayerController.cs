@@ -40,9 +40,9 @@ public class PlayerController : MonoBehaviour
         transform.position = _vehicle.gameObject.transform.position;
 
         float angleDiff = Mathf.DeltaAngle(transform.rotation.y, _vehicle.transform.rotation.y);
-        if (Math.Abs(angleDiff) > maxCamOffset)
+        if (Math.Abs(angleDiff) > 0)
         {
-            transform.rotation = Quaternion.Euler(0, _vehicle.transform.rotation.y - Mathf.Clamp(angleDiff, -maxCamOffset, maxCamOffset), 0);
+            transform.rotation *= Quaternion.Euler(0, angleDiff, 0);
         }
     }
 
