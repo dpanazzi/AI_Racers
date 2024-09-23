@@ -8,25 +8,42 @@ using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Vehicle vehicle;
+    [SerializeField] private GameObject vehiclePrefab;
+    [SerializeField] private float maxCamOffset;
 
-    private float _accel;
-    private float _rotate;
+    private float _accel = 0f;
+    private float _rotate = 0f;
+    private Vehicle _vehicle;
     
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(vehicle);
+        GameObject obj = Instantiate(vehiclePrefab, transform.position, Quaternion.identity);
+        _vehicle = obj.GetComponent<Vehicle>();
+        Debug.Log(_vehicle);
     }
 
     // Update is called once per frame
     void Update()
     {
-        vehicle.Accelerate(Math.Max(0, _accel));
-        vehicle.Brake(Math.Max(0, -_accel));
-        vehicle.Steer(_rotate);
+        if (_accel > 0)
+        {
+            _vehicle.Accelerate(_accel);
+        }
+        else if (_accel < 0)
+        {
+            _vehicle.Brake(_accel);
+        }
+        
+        _vehicle.Steer(_rotate);
 
-        transform.position = vehicle.gameObject.transform.position;
+        transform.position = _vehicle.gameObject.transform.position;
+
+        float angleDiff = Mathf.DeltaAngle(transform.rotation.y, _vehicle.transform.rotation.y);
+        if (Math.Abs(angleDiff) > maxCamOffset)
+        {
+            transform.rotation = Quaternion.Euler(0, _vehicle.transform.rotation.y - Mathf.Clamp(angleDiff, -maxCamOffset, maxCamOffset), 0);
+        }
     }
 
     void OnTurn(InputValue value)

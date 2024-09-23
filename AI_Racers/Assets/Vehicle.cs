@@ -5,55 +5,57 @@ using UnityEngine;
 
 public class Vehicle : MonoBehaviour
 {
-    [SerializeField] private float maxForwardSpeed;
-    [SerializeField] private float maxReverseSpeed;
+    [SerializeField] private float maxSpeed;
     [SerializeField, Range(2, 20)] private float acceleration;
     [SerializeField, Range(1, 10)] private float braking;
-    [SerializeField, Range(10, 100)] private float handling;
+    [SerializeField, Range(1, 30)] private float handling;
     [SerializeField] private GameObject[] guideWheels;
-
-    private float _speed = 0;
+    
+    private Rigidbody _rb;
     private float _steering = 0;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        _rb = gameObject.GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         foreach (GameObject guideWheel in guideWheels)
         {
-            guideWheel.transform.rotation = Quaternion.Euler(0, _steering, 0);
+            guideWheel.transform.localRotation = Quaternion.Euler(0, _steering, 0);
         }
-
-        _steering -= Math.Min(5, Math.Abs(_steering)) * Math.Sign(_steering);
-        _speed -= Math.Min(_steering / handling * Time.deltaTime, Math.Abs(_speed)) * Math.Sign(_speed);
-        transform.position += _speed * Time.deltaTime * guideWheels[0].transform.forward;
     }
 
     /// <summary>
     /// Accelerates the vehicle for this frame.
     /// </summary>
-    public void Accelerate(float amount)
+    public void Accelerate(float accelAmount)
     {
-        _speed += amount * acceleration * Time.deltaTime;
-        _speed = Math.Min(_speed, maxForwardSpeed);
+        if (_rb.velocity.magnitude > maxSpeed) return;
+        
+        _rb.AddForce(accelAmount * acceleration * _rb.mass * transform.forward);
     }
 
     /// <summary>
     /// Brakes the vehicle for this frame
     /// </summary>
-    public void Brake(float amount)
+    public void Brake(float brakeAmount)
     {
-        _speed -= amount * braking * Time.deltaTime;
-        _speed = Math.Max(_speed, maxReverseSpeed);
+        if (_rb.velocity.magnitude > maxSpeed) return;
+        
+        _rb.AddForce(brakeAmount * braking * _rb.mass * transform.forward);
     }
 
-    public void Steer(float amount)
+    public void Steer(float steerAmount)
     {
-        _steering = Mathf.Clamp(_steering + (amount * handling * Time.deltaTime), -45, 45);
+        Vector3 forward = transform.forward;
+        
+        _steering = steerAmount * handling;
+        _rb.AddForce(-_rb.mass / handling * acceleration * forward);
+        float angleDiff = Vector3.Angle(forward, _rb.velocity);
+        float reverseTurn = angleDiff > 90 ? -1 : 1;
+        _rb.MoveRotation(_rb.rotation * Quaternion.Euler(0, steerAmount * handling * _rb.velocity.magnitude * reverseTurn / 2000, 0));
     }
 }
