@@ -11,7 +11,7 @@ public class PlayerCamera : MonoBehaviour
     private PlayerController PlayerControllerScript;
 
     // this is the displacement of the camera from the vehicle. this should remain constant
-    private Vector3 Offset = new Vector3(0, 10, -12);
+    private Vector3 Offset = new Vector3(0, 10, -20);
 
     // determines how much the car is tilted away from camera
     public float RotateOffsety;

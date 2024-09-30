@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
 
     public float ForwardMove;
-    private float ForwardSpeed;
+    private float ForwardSpeed ;
     public float Rotate;
     private float RotateSpeed;
     private bool  IsReverse;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
         // ForwardSpeed is slower if in reverse
         IsReverse = Input.GetAxis("Vertical") < 0; // if input < 0, it goes backwards
-        ForwardSpeed = IsReverse ? 5 : 20;
+        ForwardSpeed = IsReverse ? 40 : 40;
         
         /* sets players movement direction based on input. Because input is only -1 to 1, you must  
           multiply input by speed */
